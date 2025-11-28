@@ -8,6 +8,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const header = document.querySelector('.header');
     let lastScroll = 0;
     
+    // Cache header height for smooth scrolling
+    let headerHeight = header ? header.offsetHeight : 0;
+    
+    // Update header height on resize
+    window.addEventListener('resize', function() {
+        headerHeight = header ? header.offsetHeight : 0;
+    });
+    
     function handleScroll() {
         const currentScroll = window.pageYOffset;
         
@@ -64,7 +72,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const target = document.querySelector(href);
             
             if (target) {
-                const headerHeight = header.offsetHeight;
                 const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
                 
                 window.scrollTo({
@@ -89,8 +96,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 data[key] = value;
             });
             
-            // Show success message (in production, this would send to a server)
-            alert('Thank you for your message! We will get back to you soon.');
+            // Show success message with inline notification
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Message Sent!';
+            submitBtn.style.backgroundColor = '#2a6a7d';
+            submitBtn.disabled = true;
+            
+            setTimeout(function() {
+                submitBtn.textContent = originalText;
+                submitBtn.style.backgroundColor = '';
+                submitBtn.disabled = false;
+            }, 3000);
+            
             contactForm.reset();
         });
     }
