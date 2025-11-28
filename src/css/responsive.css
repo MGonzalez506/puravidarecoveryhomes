@@ -1,0 +1,365 @@
+/* Responsive Design - Mobile First Approach */
+
+/* Base mobile styles (already defined in other files) */
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+  .container {
+    max-width: 540px;
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  .container {
+    max-width: 720px;
+  }
+
+  /* Typography adjustments */
+  html {
+    font-size: 16px;
+  }
+
+  /* Button responsive behavior */
+  .hero-actions {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  /* Grid adjustments */
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .values-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  .container {
+    max-width: 960px;
+  }
+
+  /* Navigation back to horizontal */
+  .navbar-toggle {
+    display: none;
+  }
+
+  .navbar-menu {
+    position: static;
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+    flex-direction: row;
+    background: none;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  .navbar-menu a {
+    padding: var(--space-2) var(--space-3);
+    border-bottom: none;
+  }
+
+  .navbar-menu a.active::after {
+    display: block;
+  }
+
+  /* Grid improvements */
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .team-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .values-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  /* Two column layouts */
+  .content-wrapper {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .container {
+    max-width: var(--container-max-width);
+  }
+
+  /* Optimal grid layouts for large screens */
+  .features-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .team-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Typography scale up */
+  .hero-title-main {
+    font-size: var(--font-size-7xl);
+  }
+
+  .section-title {
+    font-size: var(--font-size-5xl);
+  }
+}
+
+/* Extra extra large devices (1400px and up) */
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1320px;
+  }
+
+  /* Increased spacing for very large screens */
+  .section {
+    padding: var(--space-24) 0;
+  }
+
+  .hero-content {
+    padding: var(--space-12) 0;
+  }
+}
+
+/* High-resolution displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  /* Adjust for retina displays */
+  .logo img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* Landscape orientation adjustments */
+@media (orientation: landscape) and (max-height: 600px) {
+  .hero {
+    min-height: 100vh;
+    padding: var(--space-4) 0;
+  }
+
+  .hero-title-main {
+    font-size: var(--font-size-4xl);
+  }
+
+  .hero-title-sub {
+    font-size: var(--font-size-xl);
+  }
+
+  .hero-description {
+    font-size: var(--font-size-base);
+  }
+}
+
+/* Print styles */
+@media print {
+  /* Hide non-essential elements */
+  .header,
+  .navbar,
+  .hero-actions,
+  .cta,
+  .social-links,
+  .btn,
+  .navbar-toggle {
+    display: none !important;
+  }
+
+  /* Adjust layout for print */
+  main {
+    margin-top: 0;
+  }
+
+  .hero {
+    min-height: auto;
+    padding: var(--space-8) 0;
+    page-break-after: always;
+  }
+
+  .hero-background {
+    display: none;
+  }
+
+  .hero-content {
+    color: black;
+  }
+
+  .section {
+    padding: var(--space-8) 0;
+    page-break-inside: avoid;
+  }
+
+  .feature-card,
+  .team-member,
+  .value-item {
+    page-break-inside: avoid;
+    margin-bottom: var(--space-4);
+  }
+
+  /* Simplify grids for print */
+  .features-grid,
+  .team-grid,
+  .values-grid {
+    display: block;
+  }
+
+  .features-grid > *,
+  .team-grid > *,
+  .values-grid > * {
+    margin-bottom: var(--space-6);
+  }
+
+  /* Footer adjustments */
+  .footer {
+    background: none;
+    color: black;
+    border-top: 2px solid black;
+    page-break-before: always;
+  }
+
+  .footer-content {
+    display: block;
+  }
+
+  .footer-section {
+    margin-bottom: var(--space-6);
+  }
+}
+
+/* Accessibility: Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  /* Remove hover transforms when motion is reduced */
+  .feature-card:hover,
+  .card:hover,
+  .btn-primary:hover,
+  .social-link:hover {
+    transform: none;
+  }
+
+  /* Keep focus indicators for accessibility */
+  .btn:focus-visible,
+  .form-input:focus,
+  .form-textarea:focus,
+  .form-select:focus {
+    transition: box-shadow 0.15s ease-in-out;
+  }
+}
+
+/* Accessibility: High contrast mode */
+@media (prefers-contrast: high) {
+  /* Ensure sufficient contrast */
+  .hero-background::after {
+    background: rgba(0, 0, 0, 0.8);
+  }
+
+  .btn {
+    border-width: 3px;
+  }
+
+  .form-input,
+  .form-textarea,
+  .form-select {
+    border-width: 3px;
+  }
+
+  .card {
+    border-width: 2px;
+  }
+}
+
+/* Dark mode considerations */
+@media (prefers-color-scheme: dark) {
+  /* Adjust hero overlay for dark mode */
+  .hero-background::after {
+    background: linear-gradient(
+      45deg,
+      rgba(30, 100, 60, 0.9) 0%,
+      rgba(30, 100, 60, 0.7) 50%,
+      rgba(30, 100, 60, 0.5) 100%
+    );
+  }
+
+  /* Ensure proper contrast for cards in dark mode */
+  .feature-card,
+  .card {
+    background-color: var(--color-gray-800);
+    border-color: var(--color-gray-600);
+  }
+
+  /* Adjust footer for dark mode */
+  .footer {
+    background-color: var(--color-black);
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  /* Increase touch targets */
+  .btn {
+    min-height: 44px;
+    padding: var(--space-4) var(--space-6);
+  }
+
+  .navbar-menu a {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  .social-link {
+    width: 48px;
+    height: 48px;
+  }
+
+  /* Remove hover effects on touch devices */
+  .feature-card:hover,
+  .card:hover,
+  .social-link:hover {
+    transform: none;
+    box-shadow: var(--shadow-base);
+  }
+
+  /* Focus styles for touch */
+  .btn:focus,
+  .navbar-menu a:focus {
+    background-color: var(--color-primary-100);
+  }
+}
+
+/* Very small screens (320px and below) */
+@media (max-width: 320px) {
+  .container {
+    padding: 0 var(--space-3);
+  }
+
+  .hero-title-main {
+    font-size: var(--font-size-3xl);
+  }
+
+  .hero-title-sub {
+    font-size: var(--font-size-lg);
+  }
+
+  .hero-description {
+    font-size: var(--font-size-sm);
+  }
+
+  .section-title {
+    font-size: var(--font-size-2xl);
+  }
+
+  .btn-large {
+    padding: var(--space-3) var(--space-6);
+    font-size: var(--font-size-base);
+  }
+}
