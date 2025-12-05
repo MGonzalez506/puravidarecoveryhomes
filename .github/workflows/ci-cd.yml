@@ -42,6 +42,7 @@ jobs:
       
     - name: Run tests
       run: npm run test:coverage
+      
     - name: Security audit
       run: npm run security
       continue-on-error: true
