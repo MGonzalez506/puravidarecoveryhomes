@@ -407,3 +407,158 @@
 .block { display: block; }
 .flex { display: flex; }
 .inline-flex { display: inline-flex; }
+
+/* Elegant Typography */
+em, .italic {
+  font-family: var(--font-family-heading);
+  font-style: italic;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-primary);
+}
+
+.hero-title em,
+.section-title em,
+.cta-title em {
+  color: var(--color-secondary);
+  font-weight: var(--font-weight-semibold);
+}
+
+.highlight {
+  color: var(--color-primary);
+  font-family: var(--font-family-heading);
+  font-weight: var(--font-weight-bold);
+}
+
+/* Logo Styles */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  text-decoration: none;
+  color: inherit;
+}
+
+.logo:hover {
+  text-decoration: none;
+}
+
+.logo-initials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  color: var(--color-white);
+  font-family: var(--font-family-heading);
+  font-size: 18px;
+  font-weight: var(--font-weight-bold);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-base);
+}
+
+.logo-initials:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* Modern flat typography for brand */
+.navbar-brand .logo-text .brand-name {
+  font-family: var(--font-family-primary) !important;
+  font-size: var(--font-size-xl) !important;
+  font-weight: var(--font-weight-extrabold) !important;
+  color: var(--color-white) !important;
+  line-height: 1 !important;
+  letter-spacing: -0.02em !important;
+  text-transform: uppercase !important;
+}
+
+.brand-name {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-extrabold);
+  color: var(--color-white);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.brand-tagline {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-sm);
+  color: var(--color-primary-200);
+  line-height: 1.2;
+}
+
+.brand-tagline em {
+  font-style: italic;
+  color: var(--color-primary-100);
+}
+
+/* Footer Logo */
+.footer-brand {
+  margin-bottom: var(--space-6);
+}
+
+.footer-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  color: var(--color-white);
+  font-family: var(--font-family-heading);
+  font-size: 16px;
+  font-weight: var(--font-weight-bold);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-3);
+}
+
+.footer-title {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-white);
+  margin-bottom: var(--space-2);
+}
+
+.footer-subtitle {
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-4);
+}
+
+.footer-subtitle em {
+  font-style: italic;
+  color: var(--color-primary);
+}
+
+/* Responsive logo adjustments */
+@media (max-width: 768px) {
+  .logo-initials {
+    width: 45px;
+    height: 45px;
+    font-size: 16px;
+  }
+  
+  .brand-name {
+    font-size: var(--font-size-base);
+  }
+  
+  .brand-tagline {
+    font-size: var(--font-size-xs);
+  }
+  
+  .logo-text {
+    display: none;
+  }
+}

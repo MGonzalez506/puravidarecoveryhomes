@@ -1,31 +1,35 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Pura Vida Recovery Homes - Centro de recuperación de adicciones">
-    <meta name="keywords" content="recuperación, adicciones, centro de rehabilitación, Costa Rica">
-    <meta name="author" content="Pura Vida Recovery Homes">
+    <title>PVMS - Pura Vida Medical Stays | Medical Hospitality in Costa Rica</title>
+    <meta name="description" content="Medical hospitality services in San José, Costa Rica. Comfortable accommodation and specialized transportation for medical treatments, surgeries and dental procedures.">
+    <meta name="keywords" content="medical hospitality, medical tourism, medical accommodation, medical transportation, surgeries, dental treatments, San José Costa Rica, medical suites">
+    <meta name="author" content="Pura Vida Medical Stays">
     
-    <!-- Preconnect para mejorar rendimiento -->
+    <!-- Preconnect for performance improvement -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="Pura Vida Recovery Homes">
-    <meta property="og:description" content="Centro de recuperación de adicciones en Costa Rica">
+    <meta property="og:title" content="PVMS - Medical Hospitality in Costa Rica">
+    <meta property="og:description" content="Professional accommodation and transportation services for medical patients, surgeries and dental treatments in San José, Costa Rica.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://puravidarecoveryhomes.com">
     
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Pura Vida Recovery Homes">
-    <meta name="twitter:description" content="Centro de recuperación de adicciones en Costa Rica">
+    <meta name="twitter:title" content="PVMS - Medical Hospitality in Costa Rica">
+    <meta name="twitter:description" content="Professional accommodation and transportation services for medical patients, surgeries and dental treatments in San José, Costa Rica.">
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="./assets/images/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="./assets/images/apple-touch-icon.png">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
     
     <!-- FontAwesome -->
     <link rel="stylesheet" href="./assets/fonts/fontawesome/css/all.min.css">
@@ -38,8 +42,6 @@
     <link rel="stylesheet" href="./css/layout.css">
     <link rel="stylesheet" href="./css/pages/home.css">
     <link rel="stylesheet" href="./css/responsive.css">
-    
-    <title>Pura Vida Recovery Homes - Inicio</title>
 </head>
 <body>
     <!-- Header -->
@@ -48,94 +50,222 @@
             <div class="container">
                 <div class="navbar-brand">
                     <a href="index.html" class="logo">
-                        <img src="./assets/images/logo.png" alt="Pura Vida Recovery Homes" width="120" height="60">
+                        <!--<div class="logo-initials">PVMS</div>-->
+                        <div class="logo-text">
+                            <span class="brand-name">Pura Vida Medical Stays</span>
+                            <span class="brand-tagline"><em>Medical Hospitality</em></span>
+                        </div>
                     </a>
-                    <button class="navbar-toggle" aria-label="Abrir menú de navegación" aria-expanded="false">
-                        <i class="fas fa-bars" aria-hidden="true"></i>
-                    </button>
                 </div>
-                <ul class="navbar-menu" role="menubar">
-                    <li role="none"><a href="index.html" role="menuitem" class="active">Inicio</a></li>
-                    <li role="none"><a href="about.html" role="menuitem">Sobre Nosotros</a></li>
-                    <li role="none"><a href="programs.html" role="menuitem">Programas</a></li>
-                    <li role="none"><a href="testimonials.html" role="menuitem">Testimonios</a></li>
-                    <li role="none"><a href="contact.html" role="menuitem">Contacto</a></li>
-                    <li role="none"><a href="tel:+50625551234" role="menuitem" class="btn btn-primary"><i class="fas fa-phone" aria-hidden="true"></i> Llamar Ahora</a></li>
-                </ul>
+
+                <button class="navbar-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+
+                <div class="navbar-menu">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a href="#home" class="nav-link">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#services" class="nav-link">Services</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#location" class="nav-link">Location</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="contact.html" class="nav-link btn btn-primary btn-contact">Contact</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
-    </header>
-
     <!-- Main Content -->
     <main role="main">
         <!-- Hero Section -->
-        <section class="hero" aria-labelledby="hero-title">
+        <section class="hero" id="home" aria-labelledby="hero-title" style="background-image: url('./assets/images/Costa-Rica-Medical-Tourism.jpg');">
             <div class="hero-background">
-                <picture>
-                    <source media="(max-width: 768px)" srcset="./assets/images/hero-mobile.jpg">
-                    <source media="(max-width: 1200px)" srcset="./assets/images/hero-tablet.jpg">
-                    <img src="./assets/images/hero-desktop.jpg" alt="Vista del centro de recuperación en Costa Rica" loading="lazy">
-                </picture>
+                <div class="hero-overlay"></div>
             </div>
-            <div class="hero-content">
-                <div class="container">
+            
+            <div class="container">
+                <div class="hero-content">
                     <h1 id="hero-title" class="hero-title">
-                        <span class="hero-title-main">Recupera Tu Vida</span>
-                        <span class="hero-title-sub">En un Paraíso Natural</span>
+                        <em>Your medical treatment</em> is our
+                        <span class="highlight">priority</span>
                     </h1>
-                    <p class="hero-description">
-                        Centro especializado en rehabilitación de adicciones ubicado en Costa Rica. 
-                        Tratamiento integral con terapias personalizadas en un entorno natural y sanador.
+                    <p class="hero-subtitle">
+                        We offer specialized <em>medical hospitality</em> services in San José, Costa Rica.
+                        Comfortable accommodation and safe transportation for surgeries, medical treatments and dental procedures.
                     </p>
                     <div class="hero-actions">
                         <a href="contact.html" class="btn btn-primary btn-large">
-                            <i class="fas fa-calendar-plus" aria-hidden="true"></i>
-                            Solicitar Información
+                            <i class="fas fa-calendar-check"></i>
+                            Book Now
                         </a>
-                        <a href="tel:+50625551234" class="btn btn-secondary btn-large">
-                            <i class="fas fa-phone" aria-hidden="true"></i>
-                            Línea de Emergencia
+                        <a href="#services" class="btn btn-secondary btn-large">
+                            <i class="fas fa-info-circle"></i>
+                            Our Services
                         </a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Features Section -->
+        <!-- Services Section -->
+        <section class="section services" id="services" aria-labelledby="services-title">
+            <div class="container">
+                <div class="section-header">
+                    <h2 id="services-title" class="section-title">Our <em>Services</em></h2>
+                    <p class="section-subtitle">
+                        We provide comprehensive medical hospitality services designed for your <em>comfort and peace of mind</em>
+                    </p>
+                </div>
+                
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-plane-arrival"></i>
+                        </div>
+                        <h3 class="service-title">Airport Pickup</h3>
+                        <p class="service-description">
+                            <em>Personalized reception</em> service from Juan Santamaría Airport.
+                            Our team will be waiting to comfortably transport you to your accommodation.
+                        </p>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <h3 class="service-title">Specialized Accommodation</h3>
+                        <p class="service-description">
+                            <em>Fully equipped</em> apartments in San José, specially designed 
+                            for medical guests with all amenities for optimal recovery.
+                        </p>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-car-side"></i>
+                        </div>
+                        <h3 class="service-title">Specialized Transportation</h3>
+                        <p class="service-description">
+                            <em>Specialized driver</em> service to transport you to medical centers,
+                            dental clinics, hospitals and laboratories in San José with punctuality and safety.
+                        </p>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-hospital"></i>
+                        </div>
+                        <h3 class="service-title">Medical Coordination</h3>
+                        <p class="service-description">
+                            <em>Professional assistance</em> in coordinating medical appointments, surgeries, 
+                            dental treatments and communication with specialized health centers.
+                        </p>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3 class="service-title">24/7 Availability</h3>
+                        <p class="service-description">
+                            Our team is available <em>24 hours</em> to assist 
+                            with any need or emergency during your stay.
+                        </p>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-language"></i>
+                        </div>
+                        <h3 class="service-title">Bilingual Assistance</h3>
+                        <p class="service-description">
+                            <em>Certified bilingual</em> staff to ensure clear
+                            and effective communication throughout your medical experience.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Location Section -->
+        <section id="location" class="location-section">
+            <div class="container">
+                <h2 class="section-title">Location</h2>
+                <div class="location-content">
+                    <div class="location-text">
+                        <h3>San José, Costa Rica</h3>
+                        <p>
+                            We are strategically located in <strong>San José</strong>, the capital of Costa Rica, 
+                            providing easy access to the country's <strong>best hospitals and medical centers</strong>. 
+                            Our location allows you to receive high-quality medical care while enjoying the 
+                            hospitality and natural beauty that characterizes our beautiful country.
+                        </p>
+                        <ul class="location-benefits">
+                            <li>
+                                <i class="fas fa-check"></i>
+                                Close to the best medical centers
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                Juan Santamaría International Airport 30 minutes away
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                Safe and quiet residential area
+                            </li>
+                            <li>
+                                <i class="fas fa-check"></i>
+                                Easy access to pharmacies and commercial centers
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="location-image">
+                        <!-- Print working directory on the console -->
+                        <script>console.log("Current working directory:", window.location.pathname);</script>
+                        <img src="./assets/images/Costa-Rica-Medical-Tourism.jpg" alt="Costa Rica - San José" />
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Why Choose Us Section -->
         <section class="features" aria-labelledby="features-title">
             <div class="container">
-                <header class="section-header">
-                    <h2 id="features-title" class="section-title">¿Por Qué Elegirnos?</h2>
-                    <p class="section-description">Ofrecemos un enfoque integral y personalizado para tu recuperación</p>
-                </header>
+                <h2 id="features-title" class="section-title">Why Choose Us?</h2>
                 <div class="features-grid">
                     <article class="feature-card">
                         <div class="feature-icon">
                             <i class="fas fa-user-md" aria-hidden="true"></i>
                         </div>
-                        <h3 class="feature-title">Equipo Profesional</h3>
-                        <p class="feature-description">Médicos, psicólogos y terapeutas especializados en adicciones con experiencia internacional.</p>
+                        <h3 class="feature-title">Professional Team</h3>
+                        <p class="feature-description">Healthcare coordinators and specialized staff with extensive experience in medical hospitality.</p>
                     </article>
                     <article class="feature-card">
                         <div class="feature-icon">
                             <i class="fas fa-leaf" aria-hidden="true"></i>
                         </div>
-                        <h3 class="feature-title">Entorno Natural</h3>
-                        <p class="feature-description">Ubicados en la belleza natural de Costa Rica, favoreciendo la sanación y el bienestar.</p>
+                        <h3 class="feature-title">Natural Environment</h3>
+                        <p class="feature-description">Located in the natural beauty of Costa Rica, promoting healing and wellness in a peaceful setting.</p>
                     </article>
                     <article class="feature-card">
                         <div class="feature-icon">
                             <i class="fas fa-heart" aria-hidden="true"></i>
                         </div>
-                        <h3 class="feature-title">Atención Personalizada</h3>
-                        <p class="feature-description">Programas adaptados a las necesidades específicas de cada paciente.</p>
+                        <h3 class="feature-title">Personalized Care</h3>
+                        <p class="feature-description">Services adapted to the specific needs of each medical guest and their treatment requirements.</p>
                     </article>
                     <article class="feature-card">
                         <div class="feature-icon">
                             <i class="fas fa-clock" aria-hidden="true"></i>
                         </div>
-                        <h3 class="feature-title">Disponibilidad 24/7</h3>
-                        <p class="feature-description">Apoyo continuo durante todo el proceso de recuperación.</p>
+                        <h3 class="feature-title">24/7 Availability</h3>
+                        <p class="feature-description">Continuous support throughout your entire medical treatment process and recovery period.</p>
                     </article>
                 </div>
             </div>
@@ -145,11 +275,11 @@
         <section class="cta" aria-labelledby="cta-title">
             <div class="container">
                 <div class="cta-content">
-                    <h2 id="cta-title" class="cta-title">¿Listo Para Comenzar Tu Recuperación?</h2>
-                    <p class="cta-description">No esperes más. El primer paso hacia una nueva vida comienza hoy.</p>
+                    <h2 id="cta-title" class="cta-title">Ready to Start Your Medical Journey?</h2>
+                    <p class="cta-description">Don't wait any longer. The first step towards quality medical care begins today.</p>
                     <a href="contact.html" class="btn btn-primary btn-large">
                         <i class="fas fa-paper-plane" aria-hidden="true"></i>
-                        Contactar Ahora
+                        Contact Now
                     </a>
                 </div>
             </div>
@@ -161,40 +291,81 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3 class="footer-title">Pura Vida Recovery Homes</h3>
-                    <p class="footer-description">Centro especializado en rehabilitación de adicciones en Costa Rica.</p>
-                    <div class="social-links">
-                        <a href="#" aria-label="Facebook" class="social-link">
-                            <i class="fab fa-facebook-f" aria-hidden="true"></i>
+                    <div class="footer-brand">
+                        <div class="footer-logo">PVMS</div>
+                        <h3 class="footer-title">Pura Vida Medical Stays</h3>
+                        <p class="footer-subtitle"><em>Medical Hospitality</em></p>
+                    </div>
+                    <p class="footer-description">
+                        Professional accommodation and specialized transportation services 
+                        for medical patients, surgeries and dental treatments in <em>San José, Costa Rica</em>.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" class="social-link" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
                         </a>
-                        <a href="#" aria-label="Instagram" class="social-link">
-                            <i class="fab fa-instagram" aria-hidden="true"></i>
+                        <a href="#" class="social-link" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
                         </a>
-                        <a href="#" aria-label="LinkedIn" class="social-link">
-                            <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+                        <a href="#" class="social-link" aria-label="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
                         </a>
                     </div>
                 </div>
+                
                 <div class="footer-section">
-                    <h4 class="footer-subtitle">Enlaces Rápidos</h4>
+                    <h4 class="footer-subtitle">Services</h4>
                     <ul class="footer-links">
-                        <li><a href="about.html">Sobre Nosotros</a></li>
-                        <li><a href="programs.html">Programas</a></li>
-                        <li><a href="testimonials.html">Testimonios</a></li>
-                        <li><a href="contact.html">Contacto</a></li>
+                        <li><a href="#services">Airport Pickup</a></li>
+                        <li><a href="#services">Accommodation</a></li>
+                        <li><a href="#services">Medical Transportation</a></li>
+                        <li><a href="#services">24/7 Assistance</a></li>
                     </ul>
                 </div>
+                
                 <div class="footer-section">
-                    <h4 class="footer-subtitle">Contacto</h4>
-                    <address class="footer-contact">
-                        <p><i class="fas fa-map-marker-alt" aria-hidden="true"></i> San José, Costa Rica</p>
-                        <p><i class="fas fa-phone" aria-hidden="true"></i> <a href="tel:+50625551234">+506 2555-1234</a></p>
-                        <p><i class="fas fa-envelope" aria-hidden="true"></i> <a href="mailto:info@puravidarecoveryhomes.com">info@puravidarecoveryhomes.com</a></p>
-                    </address>
+                    <h4 class="footer-subtitle">Information</h4>
+                    <ul class="footer-links">
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="#location">Location</a></li>
+                        <li><a href="#">Frequently Asked Questions</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 class="footer-subtitle">Contact</h4>
+                    <div class="footer-contact">
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>San José, Costa Rica</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <a href="tel:+50625551234">+506 2555-1234</a>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:info@puravidamedicalstays.com">info@puravidamedicalstays.com</a>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fab fa-whatsapp"></i>
+                            <a href="https://wa.me/50625551234">WhatsApp</a>
+                        </div>
+                    </div>
                 </div>
             </div>
+            
             <div class="footer-bottom">
-                <p>&copy; 2025 Pura Vida Recovery Homes. Todos los derechos reservados.</p>
+                <div class="footer-copyright">
+                    <p>&copy; 2024 Pura Vida Medical Stays. All rights reserved.</p>
+                </div>
+                <div class="footer-legal">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
             </div>
         </div>
     </footer>

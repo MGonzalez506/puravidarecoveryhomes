@@ -47,7 +47,8 @@
     display: none;
   }
 
-  .navbar-menu {
+  .navbar-menu,
+  .navbar-nav {
     position: static;
     transform: none;
     opacity: 1;
@@ -56,14 +57,19 @@
     background: none;
     box-shadow: none;
     padding: 0;
+    border-top: none;
   }
 
-  .navbar-menu a {
+  .navbar-menu a,
+  .nav-link {
     padding: var(--space-2) var(--space-3);
     border-bottom: none;
+    width: auto;
+    display: inline-block;
   }
 
-  .navbar-menu a.active::after {
+  .navbar-menu a.active::after,
+  .nav-link.active::after {
     display: block;
   }
 

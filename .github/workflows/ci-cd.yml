@@ -1,0 +1,328 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop, staging ]
+  pull_request:
+    branches: [ main, develop ]
+
+env:
+  NODE_VERSION: '18.x'
+
+jobs:
+  # Code Quality and Testing
+  quality:
+    name: Code Quality & Testing
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Run ESLint
+      run: npm run lint
+      
+    - name: Check code formatting
+      run: npm run format:check
+      
+    - name: Validate HTML
+      run: npm run validate:html
+      
+    - name: Validate CSS
+      run: npm run validate:css
+      
+    - name: Run tests
+      run: npm run test:coverage
+    - name: Security audit
+      run: npm run security
+      continue-on-error: true
+      
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v4
+      with:
+        file: ./coverage/lcov.info
+        flags: unittests
+        name: codecov-umbrella
+        
+  # Build Application
+  build:
+    name: Build Application
+    runs-on: ubuntu-latest
+    needs: quality
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Build application
+      run: npm run build
+      env:
+        NODE_ENV: production
+        
+    - name: Analyze bundle size
+      run: npm run analyze
+      continue-on-error: true
+      
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: dist-files
+        path: dist/
+        retention-days: 7
+
+  # Performance Testing
+  performance:
+    name: Performance & Accessibility Testing
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Download build artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: dist-files
+        path: dist/
+        
+    - name: Start preview server
+      run: |
+        npm run preview &
+        sleep 5
+        
+    - name: Run Lighthouse CI
+      run: |
+        npm install -g @lhci/cli@0.12.x
+        lhci autorun
+      env:
+        LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+        
+    - name: Run accessibility tests
+      run: npm run validate:accessibility
+      continue-on-error: true
+
+  # Deploy to Staging
+  deploy-staging:
+    name: Deploy to Staging
+    runs-on: ubuntu-latest
+    needs: [quality, build]
+    if: github.ref == 'refs/heads/develop' && github.event_name == 'push'
+    environment: staging
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Download build artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: dist-files
+        path: dist/
+        
+    - name: Deploy to Staging Server via SSH
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.STAGING_HOST }}
+        username: ${{ secrets.STAGING_USERNAME }}
+        key: ${{ secrets.STAGING_SSH_KEY }}
+        port: ${{ secrets.STAGING_PORT || 22 }}
+        script: |
+          # Create backup of current deployment
+          if [ -d "/var/www/staging.puravidarecoveryhomes.com" ]; then
+            sudo cp -r /var/www/staging.puravidarecoveryhomes.com /var/www/staging.puravidarecoveryhomes.com.backup.$(date +%Y%m%d_%H%M%S)
+          fi
+          
+          # Create staging directory if it doesn't exist
+          sudo mkdir -p /var/www/staging.puravidarecoveryhomes.com
+          sudo chown -R $USER:$USER /var/www/staging.puravidarecoveryhomes.com
+          
+    - name: Upload files to Staging Server
+      uses: appleboy/scp-action@v0.1.7
+      with:
+        host: ${{ secrets.STAGING_HOST }}
+        username: ${{ secrets.STAGING_USERNAME }}
+        key: ${{ secrets.STAGING_SSH_KEY }}
+        port: ${{ secrets.STAGING_PORT || 22 }}
+        source: "dist/*"
+        target: "/var/www/staging.puravidarecoveryhomes.com/"
+        strip_components: 1
+        
+    - name: Set correct permissions and restart services
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.STAGING_HOST }}
+        username: ${{ secrets.STAGING_USERNAME }}
+        key: ${{ secrets.STAGING_SSH_KEY }}
+        port: ${{ secrets.STAGING_PORT || 22 }}
+        script: |
+          # Set correct permissions
+          sudo chown -R www-data:www-data /var/www/staging.puravidarecoveryhomes.com
+          sudo chmod -R 755 /var/www/staging.puravidarecoveryhomes.com
+          
+          # Reload Nginx (if using Nginx)
+          sudo systemctl reload nginx
+          
+          # Clear Cloudflare cache for staging
+          curl -X POST "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLARE_ZONE_ID }}/purge_cache" \
+            -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            --data '{"hosts":["staging.puravidarecoveryhomes.com"]}'
+        
+    - name: Comment PR with staging URL
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: '🚀 Staging deployment: https://staging.puravidarecoveryhomes.com'
+          });
+
+  # Deploy to Production
+  deploy-production:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs: [quality, build, performance]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    environment: production
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Download build artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: dist-files
+        path: dist/
+        
+    - name: Deploy to Production Server via SSH
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.PRODUCTION_HOST }}
+        username: ${{ secrets.PRODUCTION_USERNAME }}
+        key: ${{ secrets.PRODUCTION_SSH_KEY }}
+        port: ${{ secrets.PRODUCTION_PORT || 22 }}
+        script: |
+          # Create backup of current deployment
+          if [ -d "/var/www/puravidarecoveryhomes.com" ]; then
+            sudo cp -r /var/www/puravidarecoveryhomes.com /var/www/puravidarecoveryhomes.com.backup.$(date +%Y%m%d_%H%M%S)
+            # Keep only last 5 backups
+            sudo ls -t /var/www/puravidarecoveryhomes.com.backup.* | tail -n +6 | sudo xargs rm -rf
+          fi
+          
+          # Create production directory if it doesn't exist
+          sudo mkdir -p /var/www/puravidarecoveryhomes.com
+          sudo chown -R $USER:$USER /var/www/puravidarecoveryhomes.com
+          
+    - name: Upload files to Production Server
+      uses: appleboy/scp-action@v0.1.7
+      with:
+        host: ${{ secrets.PRODUCTION_HOST }}
+        username: ${{ secrets.PRODUCTION_USERNAME }}
+        key: ${{ secrets.PRODUCTION_SSH_KEY }}
+        port: ${{ secrets.PRODUCTION_PORT || 22 }}
+        source: "dist/*"
+        target: "/var/www/puravidarecoveryhomes.com/"
+        strip_components: 1
+        
+    - name: Set permissions, restart services and purge Cloudflare cache
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.PRODUCTION_HOST }}
+        username: ${{ secrets.PRODUCTION_USERNAME }}
+        key: ${{ secrets.PRODUCTION_SSH_KEY }}
+        port: ${{ secrets.PRODUCTION_PORT || 22 }}
+        script: |
+          # Set correct permissions
+          sudo chown -R www-data:www-data /var/www/puravidarecoveryhomes.com
+          sudo chmod -R 755 /var/www/puravidarecoveryhomes.com
+          
+          # Test Nginx configuration
+          sudo nginx -t
+          
+          # Reload Nginx
+          sudo systemctl reload nginx
+          
+          # Clear Cloudflare cache completely
+          curl -X POST "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLARE_ZONE_ID }}/purge_cache" \
+            -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            --data '{"purge_everything":true}'
+          
+          echo "✅ Production deployment completed successfully"
+        
+    - name: Create GitHub Release
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref_name }}
+        release_name: Release ${{ github.ref_name }}
+        draft: false
+        prerelease: false
+        
+    - name: Notify deployment success
+      run: |
+        echo "🎉 Successfully deployed to production!"
+        echo "🌐 Live site: https://puravidarecoveryhomes.com"
+        echo "🔄 Cloudflare cache purged"
+
+  # Cleanup
+  cleanup:
+    name: Cleanup
+    runs-on: ubuntu-latest
+    needs: [deploy-staging, deploy-production]
+    if: always()
+    
+    steps:
+    - name: Delete artifacts
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const artifacts = await github.rest.actions.listWorkflowRunArtifacts({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            run_id: context.runId,
+          });
+          
+          for (const artifact of artifacts.data.artifacts) {
+            console.log(`Deleting artifact: ${artifact.name}`);
+            await github.rest.actions.deleteArtifact({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              artifact_id: artifact.id,
+            });
+          }

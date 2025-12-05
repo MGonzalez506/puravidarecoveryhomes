@@ -295,3 +295,28 @@ select:focus-visible {
     font-size: var(--font-size-xl);
   }
 }
+
+/* Navigation reset styles */
+.navbar-menu,
+.navbar-nav,
+nav ul {
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.nav-item,
+nav li {
+  list-style: none !important;
+  margin: 0;
+  padding: 0;
+}
+
+/* Remove bullet points from all navigation elements */
+nav ul li::before {
+  display: none !important;
+}
+
+nav ul li {
+  background: none !important;
+}
