@@ -1,0 +1,154 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Test Centrado de Containers</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    
+    <!-- FontAwesome Pro CSS -->
+    <link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/exadonbosco-custom.css" />
+    
+    <style>
+        /* Estilos de debug para visualizar los containers */
+        .debug-container {
+            background: rgba(255, 0, 0, 0.1);
+            border: 2px dashed #ff0000;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .debug-container::before {
+            content: attr(data-container);
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            background: #ff0000;
+            color: white;
+            padding: 2px 8px;
+            font-size: 0.8rem;
+            border-radius: 3px;
+        }
+        
+        .debug-content {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid #00ff00;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .ruler {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 20px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                transparent calc(50% - 1px), 
+                red calc(50% - 1px), 
+                red calc(50% + 1px), 
+                transparent calc(50% + 1px), 
+                transparent 100%);
+            z-index: 1000;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="ruler"></div>
+    <div id="page-wrapper">
+        <!-- Main Content -->
+        <main style="padding: 3rem 0;">
+            <div class="container text-center" style="margin-bottom: 3rem;">
+                <h1>Test de Centrado de Containers</h1>
+                <p>Verificando que todos los containers estén correctamente centrados con padding equilibrado</p>
+            </div>
+            
+            <!-- Container regular -->
+            <div class="container debug-container" data-container="container">
+                <div class="debug-content">
+                    <h2>Container Regular</h2>
+                    <p>Max-width: 1280px | Padding: 1.5rem lateral</p>
+                    <p>Este contenido debería estar centrado con igual espacio a izquierda y derecha</p>
+                </div>
+            </div>
+            
+            <!-- Container XL -->
+            <div class="container-xl debug-container" data-container="container-xl">
+                <div class="debug-content">
+                    <h2>Container XL</h2>
+                    <p>Max-width: 1280px | Padding: 1.5rem lateral</p>
+                    <p>Mismo comportamiento que container regular</p>
+                </div>
+            </div>
+            
+            <!-- Container 2XL -->
+            <div class="container-2xl debug-container" data-container="container-2xl">
+                <div class="debug-content">
+                    <h2>Container 2XL</h2>
+                    <p>Max-width: 1536px | Padding: 1.5rem lateral</p>
+                    <p>Container más ancho para pantallas grandes</p>
+                </div>
+            </div>
+            
+            <!-- Test con Grid -->
+            <div class="container-xl debug-container" data-container="container-xl + grid">
+                <div class="debug-content">
+                    <h2>Test con Grid System</h2>
+                    <div class="row">
+                        <div class="col-4" style="background: rgba(255,0,0,0.2); padding: 1rem;">
+                            <h3>Columna 1</h3>
+                            <p>33.33% width</p>
+                        </div>
+                        <div class="col-4" style="background: rgba(0,255,0,0.2); padding: 1rem;">
+                            <h3>Columna 2</h3>
+                            <p>33.33% width</p>
+                        </div>
+                        <div class="col-4" style="background: rgba(0,0,255,0.2); padding: 1rem;">
+                            <h3>Columna 3</h3>
+                            <p>33.33% width</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Instrucciones -->
+            <div class="container" style="margin-top: 3rem; padding: 2rem; background: #f8f9fa; border-radius: 8px;">
+                <h2>🔍 Cómo verificar el centrado:</h2>
+                <ol style="text-align: left; max-width: 600px; margin: 0 auto;">
+                    <li><strong>Línea roja central:</strong> La línea roja fija en la parte superior marca el centro exacto de la pantalla</li>
+                    <li><strong>Containers rojos:</strong> Los bordes rojos muestran los límites de cada container</li>
+                    <li><strong>Contenido verde:</strong> El contenido dentro debería estar centrado</li>
+                    <li><strong>Espacios laterales:</strong> Debería haber igual espacio a izquierda y derecha de cada container</li>
+                    <li><strong>Responsive:</strong> Redimensiona la ventana para probar en diferentes tamaños</li>
+                </ol>
+            </div>
+        </main>
+
+        <!-- Footer dinámico -->
+        <footer id="footer"></footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/footer-manager.js"></script>
+    
+    <script>
+        // Inicializar footer
+        document.addEventListener('DOMContentLoaded', function() {
+            const footerManager = new FooterManager();
+            footerManager.generateFooter();
+        });
+        
+        // Debug info
+        console.log('Container sizes:');
+        console.log('- container: max-width 1280px');
+        console.log('- container-xl: max-width 1280px');
+        console.log('- container-2xl: max-width 1536px');
+        console.log('- All have margin: 0 auto and padding: 0 1.5rem');
+    </script>
+</body>
+</html>
