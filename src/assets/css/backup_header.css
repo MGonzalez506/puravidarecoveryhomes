@@ -78,17 +78,31 @@
    Header Principal (Solo logo y título)
    ========================================================================== */
 
+/* Header background with overlay */
 #header {
-    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-    padding: 4em 0 3em 0;
+    background: url('/src/images/Medical-Tourism-Costa-Rica.jpg') no-repeat center center/cover;
     position: relative;
-    z-index: 10;
+}
+
+#header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+    z-index: 1;
 }
 
 #header .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2em;
+    position: relative;
+    z-index: 2; /* Ensure content is above the overlay */
+}
+
+/* Transparent top navigation */
+.top-navigation {
+    background: transparent !important;
 }
 
 /* ==========================================================================

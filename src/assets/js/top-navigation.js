@@ -137,3 +137,11 @@ TopNavigationManager.initialize();
 
 // Exportar para uso manual si es necesario
 window.TopNavigationManager = TopNavigationManager;
+
+// Agregar nuevo elemento de navegación para la página de contacto
+this.navigationItems.push({
+            id: 'contacto',
+            href: 'contacto.html',
+            title: 'Contáctanos',
+            text: 'Contacto'
+        });
